@@ -32,11 +32,11 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
-#define CAR_MIN_Y 120  // LÌmite inferior para el movimiento de los carros DEJAR 120 para MoveStep de 33
-#define CAR_MAX_Y 240  // LÌmite superior para el movimiento de los carros
+#define CAR_MIN_Y 120  // L√≠mite inferior para el movimiento de los carros DEJAR 120 para MoveStep de 33
+#define CAR_MAX_Y 240  // L√≠mite superior para el movimiento de los carros
 #define CAR_START_Y 320 // Comenzar fuera de la pantalla (por debajo de la misma)
 #define THRESHOLD_Y 100 // Coordenada de umbral para limpiar el rastro
-#define I2C_ADDRESS 0x04 // DirecciÛn del esclavo I2C (ESP32)
+#define I2C_ADDRESS 0x04 // Direcci√≥n del esclavo I2C (ESP32)
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -128,14 +128,14 @@ int main(void)
 
 	LCD_Clear(0x9CD3);
 
-	// Posicionar el sprite en su posiciÛn inicial
+	// Posicionar el sprite en su posici√≥n inicial
 	// Inicializar posiciones de los carros
 	int spriteY[4] = {CAR_START_Y, CAR_START_Y, CAR_START_Y, CAR_START_Y}; // Fuera de la pantalla
 	const int spriteHeight = 59; // Altura de los sprites
 	const int moveStep = 33; // Cantidad a mover en cada paso
 
 
-	// Muestra de los gr·ficos y otros elementos
+	// Muestra de los gr√°ficos y otros elementos
 	LCD_Bitmap(35, 15, 213, 34, rotulo);
 	LCD_Bitmap(260, 15, 33, 33, cero);
 	LCD_Bitmap(260, 15, 33, 33, uno);
@@ -169,7 +169,7 @@ int main(void)
 	FillRect(305, 100, 8, 129, 0xFFF7);
 
 	void DisplayNumberOn7Segment(int number) {
-			       	    // Define los patrones para los n˙meros 0 a 4
+			       	    // Define los patrones para los n√∫meros 0 a 4
 			       	    const uint8_t segmentPatterns[5] = {
 			       	    	0b11010011,  // 4
 							0b10110111, // 3
@@ -181,12 +181,12 @@ int main(void)
 
 			       	    };
 
-			       	    // Aseg˙rate de que el n˙mero estÈ en el rango de 0 a 4
+			       	    // Aseg√∫rate de que el n√∫mero est√© en el rango de 0 a 4
 			       	    if (number < 0 || number > 4) {
-			       	        return; // Salir si el n˙mero es inv·lido
+			       	        return; // Salir si el n√∫mero es inv√°lido
 			       	    }
 
-			       	    // Obtener el patrÛn correspondiente
+			       	    // Obtener el patr√≥n correspondiente
 			       	    uint8_t pattern = segmentPatterns[number];
 
 			       	    // Configurar los pines para encender los segmentos
@@ -213,55 +213,55 @@ int main(void)
 		    uint8_t sensor4 = HAL_GPIO_ReadPin(SENS_IN4_GPIO_Port, SENS_IN4_Pin); // SENS_IN4
 
 
-    // Actualizar los sprites de los indicativos de parqueo seg˙n el estado de los sensores
+    // Actualizar los sprites de los indicativos de parqueo seg√∫n el estado de los sensores
 	        if (sensor1 == 0) {
 	            LCD_Bitmap(40, 70, 22, 21, cambioROJO); // Cambiar a rojo si el sensor detecta un carro
-	            sendDebugCommand('S'); // Enviar 'S' si sensor1 est· activo
+	            sendDebugCommand('S'); // Enviar 'S' si sensor1 est√° activo
 	        } else {
 	            LCD_Bitmap(40, 70, 22, 21, cambioVERDE); // Cambiar a verde si el sensor no detecta un carro
-	            sendDebugCommand('T');// Enviar 'T' si sensor1 est· inactivo
+	            sendDebugCommand('T');// Enviar 'T' si sensor1 est√° inactivo
 	        }
 
 	        if (sensor2 == 0) {
 	            LCD_Bitmap(116, 70, 22, 21, cambioROJO); // Cambiar a rojo si el sensor detecta un carro
-	            sendDebugCommand('U');// Enviar 'U' si sensor2 est· activo
+	            sendDebugCommand('U');// Enviar 'U' si sensor2 est√° activo
 	        } else {
 	            LCD_Bitmap(116, 70, 22, 21, cambioVERDE); // Cambiar a verde si el sensor no detecta un carro
-	            sendDebugCommand('V');// Enviar 'V' si sensor2 est· inactivo
+	            sendDebugCommand('V');// Enviar 'V' si sensor2 est√° inactivo
 	        }
 
 	        if (sensor3 == 0) {
 	            LCD_Bitmap(192, 70, 22, 21, cambioROJO); // Cambiar a rojo si el sensor detecta un carro
-	            sendDebugCommand('W'); // Enviar 'W' si sensor3 est· activo
+	            sendDebugCommand('W'); // Enviar 'W' si sensor3 est√° activo
 	        } else {
 	            LCD_Bitmap(192, 70, 22, 21, cambioVERDE); // Cambiar a verde si el sensor no detecta un carro
-	            sendDebugCommand('X'); // Enviar 'X' si sensor3 est· inactivo
+	            sendDebugCommand('X'); // Enviar 'X' si sensor3 est√° inactivo
 	        }
 
 	        if (sensor4 == 0) {
 	            LCD_Bitmap(266, 70, 22, 21, cambioROJO); // Cambiar a rojo si el sensor detecta un carro
-	            sendDebugCommand('Y'); // Enviar 'Y' si sensor4 est· activo
+	            sendDebugCommand('Y'); // Enviar 'Y' si sensor4 est√° activo
 	        } else {
 	            LCD_Bitmap(266, 70, 22, 21, cambioVERDE); // Cambiar a verde si el sensor no detecta un carro
-	            sendDebugCommand('Z'); // Enviar 'Z' si sensor4 est· inactivo
+	            sendDebugCommand('Z'); // Enviar 'Z' si sensor4 est√° inactivo
 	        }
 
-	    //Generar cambio de n˙mero seg˙n la disponibilidad del parqueo
+	    //Generar cambio de n√∫mero seg√∫n la disponibilidad del parqueo
 	        // Variables para almacenar el contador anterior
-	        int previousCounter = -1; // Inicializar en un valor que no sea v·lido
+	        int previousCounter = -1; // Inicializar en un valor que no sea v√°lido
 
 	        // Contador de sensores activos
 	        int activeSensors = sensor1 + sensor2 + sensor3 + sensor4;
 
 	        // Calcular el contador actual basado en los sensores activos
-	        int currentCounter = 4 - activeSensors; // Restar el n˙mero de sensores activos de 4
+	        int currentCounter = 4 - activeSensors; // Restar el n√∫mero de sensores activos de 4
 
 	        // Solo actualizar si el contador ha cambiado
 	        if (currentCounter != previousCounter) {
-	            // Limpiar el ·rea donde estaba el n˙mero antes de dibujarlo
-	           // FillRect(260, 15, 33, 33, 0x9CD3); // Limpiar ·rea del n˙mero
+	            // Limpiar el √°rea donde estaba el n√∫mero antes de dibujarlo
+	           // FillRect(260, 15, 33, 33, 0x9CD3); // Limpiar √°rea del n√∫mero
 
-	            // Mostrar el n˙mero correspondiente
+	            // Mostrar el n√∫mero correspondiente
 	            switch (currentCounter) {
 	                case 4:
 	                    LCD_Bitmap(260, 15, 33, 33, cero);
@@ -281,52 +281,52 @@ int main(void)
 	            }
 	            // Enviar el estado de los espacios disponibles al ESP32
 	               sendSensorStatusToI2C(currentCounter);
-	            // Mostrar el n˙mero en el display de 7 segmentos
+	            // Mostrar el n√∫mero en el display de 7 segmentos
 	               DisplayNumberOn7Segment(currentCounter);
 	            // Actualizar el contador anterior
 	            previousCounter = currentCounter;
 	        }
 
-	        	// Variables para almacenar la posiciÛn anterior de los sprites
-		       int previousY[4]; // No inicializar aquÌ, se llenar· despuÈs
+	        	// Variables para almacenar la posici√≥n anterior de los sprites
+		       int previousY[4]; // No inicializar aqu√≠, se llenar√° despu√©s
 
-		       // Mover sprites basados en las seÒales de los sensores
+		       // Mover sprites basados en las se√±ales de los sensores
 		       for (int i = 0; i < 4; i++) {
-		           previousY[i] = spriteY[i]; // Almacenar la posiciÛn anterior
+		           previousY[i] = spriteY[i]; // Almacenar la posici√≥n anterior
 
 		           if (i == 0 && sensor1) {
-		               spriteY[i] += moveStep; // Mover carro 1 hacia abajo si hay seÒal
+		               spriteY[i] += moveStep; // Mover carro 1 hacia abajo si hay se√±al
 		               if (spriteY[i] > CAR_MAX_Y) spriteY[i] = CAR_MAX_Y; // Limitar el movimiento
 		           } else if (i == 0) {
-		               if (spriteY[i] > CAR_MIN_Y) spriteY[i] -= moveStep; // Mover carro 1 hacia arriba si no hay seÒal
+		               if (spriteY[i] > CAR_MIN_Y) spriteY[i] -= moveStep; // Mover carro 1 hacia arriba si no hay se√±al
 		           }
 
 		           if (i == 1 && sensor2) {
-		               spriteY[i] += moveStep; // Mover carro 2 hacia abajo si hay seÒal
+		               spriteY[i] += moveStep; // Mover carro 2 hacia abajo si hay se√±al
 		               if (spriteY[i] > CAR_MAX_Y) spriteY[i] = CAR_MAX_Y; // Limitar el movimiento
 		           } else if (i == 1) {
-		               if (spriteY[i] > CAR_MIN_Y) spriteY[i] -= moveStep; // Mover carro 2 hacia arriba si no hay seÒal
+		               if (spriteY[i] > CAR_MIN_Y) spriteY[i] -= moveStep; // Mover carro 2 hacia arriba si no hay se√±al
 		           }
 
 		           if (i == 2 && sensor3) {
-		               spriteY[i] += moveStep; // Mover carro 3 hacia abajo si hay seÒal
+		               spriteY[i] += moveStep; // Mover carro 3 hacia abajo si hay se√±al
 		               if (spriteY[i] > CAR_MAX_Y) spriteY[i] = CAR_MAX_Y; // Limitar el movimiento
 		           } else if (i == 2) {
-		               if (spriteY[i] > CAR_MIN_Y) spriteY[i] -= moveStep; // Mover carro 3 hacia arriba si no hay seÒal
+		               if (spriteY[i] > CAR_MIN_Y) spriteY[i] -= moveStep; // Mover carro 3 hacia arriba si no hay se√±al
 		           }
 
 		           if (i == 3 && sensor4) {
-		               spriteY[i] += moveStep; // Mover carro 4 hacia abajo si hay seÒal
+		               spriteY[i] += moveStep; // Mover carro 4 hacia abajo si hay se√±al
 		               if (spriteY[i] > CAR_MAX_Y) spriteY[i] = CAR_MAX_Y; // Limitar el movimiento
 		           } else if (i == 3) {
-		               if (spriteY[i] > CAR_MIN_Y) spriteY[i] -= moveStep; // Mover carro 4 hacia arriba si no hay seÒal
+		               if (spriteY[i] > CAR_MIN_Y) spriteY[i] -= moveStep; // Mover carro 4 hacia arriba si no hay se√±al
 		           }
 		       }
 
-		       // Limpiar el ·rea donde estaba el sprite antes de dibujarlo en la nueva posiciÛn
+		       // Limpiar el √°rea donde estaba el sprite antes de dibujarlo en la nueva posici√≥n
 		       unsigned int backgroundColor = 0x9CD3; // Color de fondo que usaste para limpiar la pantalla
 		       for (int i = 0; i < 4; i++) {
-		           // Solo limpiar si la posiciÛn anterior es diferente de la nueva
+		           // Solo limpiar si la posici√≥n anterior es diferente de la nueva
 		           if (previousY[i] != spriteY[i]) {
 		               FillRect(26 + (i * 76), previousY[i], 49, spriteHeight, backgroundColor); // Limpiar cada carro
 		           }
@@ -334,8 +334,8 @@ int main(void)
 
 		       // Dibuja los carros en sus nuevas posiciones
 		       for (int i = 0; i < 4; i++) {
-		           if (previousY[i] != spriteY[i]) { // Solo dibujar si la posiciÛn ha cambiado
-		               int anima1 = (spriteY[i] / 2) % 2; // Cambiar animaciÛn basado en la posiciÛn
+		           if (previousY[i] != spriteY[i]) { // Solo dibujar si la posici√≥n ha cambiado
+		               int anima1 = (spriteY[i] / 2) % 2; // Cambiar animaci√≥n basado en la posici√≥n
 		               LCD_Sprite(26 + (i * 76), spriteY [i], 49, 59, (i == 0) ? movCARRO1 : (i == 1) ? movCARRO2 : (i == 2) ? movCARRO3 : movCARRO4, 2, anima1, 0, 1); // Dibujar cada carro
 		           }
 		       }
